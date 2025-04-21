@@ -42,12 +42,15 @@
     .start-btn { display: block; margin: 20px auto; background-color: #2ecc71; }
     .results {
       text-align: center; margin-top: 20px; padding: 20px;
-      background-color: #e8f4f8; border-radius: 5px; display: none;
+      background-color: #e8f4f8; border-radius: 5px;
     }
     .score { font-size: 24px; font-weight: bold; margin-bottom: 15px; }
-    .restart-btn { background-color: #e74c3c; }
+    .restart-btn { background-color: #e74c3c; margin-left: 10px; }
+    .review-btn { background-color: #f39c12; }
     .question-number { text-align: right; font-size: 14px; color: #7f8c8d; margin-bottom: 10px; }
     .hidden { display: none; }
+    #reviewWrong, #restartQuiz { margin-top: 15px; }
+    #incorrectQuestions div { text-align: left; margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -86,15 +89,17 @@
     <div class="results">
       <h2>Quiz Results</h2>
       <div class="score" id="score"></div>
-      <div id="incorrectQuestions"></div>
+      <!-- Hidden by default, revealed when you click Review Incorrect -->
+      <div id="incorrectQuestions" class="hidden"></div>
+      <button id="reviewWrong" class="review-btn">Review Incorrect</button>
       <button id="restartQuiz" class="restart-btn">Restart Quiz</button>
     </div>
   </div>
 
-  <!-- ✅ Load real question data -->
+  <!-- Load real question data -->
   <script src="questions.js"></script>
 
-  <!-- ✅ Quiz app logic -->
+  <!-- Quiz logic -->
   <script>
     function shuffleQuestion(q) {
       const pairs = q.options.map((opt, i) => ({ opt, idx: i }));
@@ -107,38 +112,38 @@
       return { question: q.question, options: newOptions, answer: newAnswer };
     }
 
-    const startSection = document.getElementById('startSection');
-    const quizSection = document.getElementById('quizSection');
+    const startSection   = document.getElementById('startSection');
+    const quizSection    = document.getElementById('quizSection');
     const resultsSection = document.getElementById('resultsSection');
-    const sectionSelect = document.getElementById('sectionSelect');
-    const startBtn = document.getElementById('startQuiz');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const restartBtn = document.getElementById('restartQuiz');
-    const questionEl = document.getElementById('question');
-    const optionsEl = document.getElementById('options');
-    const feedbackEl = document.getElementById('feedback');
-    const progressBar = document.getElementById('progressBar');
-    const questionNumEl = document.getElementById('questionNumber');
-    const scoreEl = document.getElementById('score');
-    const incorrectEl = document.getElementById('incorrectQuestions');
+    const sectionSelect  = document.getElementById('sectionSelect');
+    const startBtn       = document.getElementById('startQuiz');
+    const prevBtn        = document.getElementById('prevBtn');
+    const nextBtn        = document.getElementById('nextBtn');
+    const reviewBtn      = document.getElementById('reviewWrong');
+    const restartBtn     = document.getElementById('restartQuiz');
+    const questionEl     = document.getElementById('question');
+    const optionsEl      = document.getElementById('options');
+    const feedbackEl     = document.getElementById('feedback');
+    const progressBar    = document.getElementById('progressBar');
+    const questionNumEl  = document.getElementById('questionNumber');
+    const scoreEl        = document.getElementById('score');
+    const incorrectEl    = document.getElementById('incorrectQuestions');
 
     let quiz = [], current = 0, score = 0, userAnswers = [];
 
     function startQuiz() {
       const sec = sectionSelect.value;
-      let selected = [];
-      if (sec === 'all') {
-        selected = [...quizData.lumbar, ...quizData.hip, ...quizData.foot, ...quizData.knee1, ...quizData.knee2];
-      } else {
-        selected = quizData[sec];
-      }
+      let selected = (sec === 'all')
+        ? [...quizData.lumbar, ...quizData.hip, ...quizData.foot, ...quizData.knee1, ...quizData.knee2]
+        : quizData[sec];
       quiz = selected.map(shuffleQuestion);
       current = 0; score = 0; userAnswers = [];
 
       startSection.classList.add('hidden');
       quizSection.classList.remove('hidden');
       resultsSection.classList.add('hidden');
+      incorrectEl.classList.add('hidden');
+      reviewBtn.textContent = 'Review Incorrect';
 
       renderQuestion();
     }
@@ -148,18 +153,17 @@
       questionEl.textContent = q.question;
       optionsEl.innerHTML = '';
       feedbackEl.style.display = 'none';
-      q.options.forEach((opt, i) => {
+      q.options.forEach((opt,i) => {
         const div = document.createElement('div'); div.className = 'option';
-        const inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'option'; inp.id = `opt${i}`; inp.value = i;
+        const inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'option'; inp.value = i; inp.id = `opt${i}`;
         const lbl = document.createElement('label'); lbl.htmlFor = `opt${i}`; lbl.textContent = opt;
-        div.append(inp, lbl);
-        optionsEl.append(div);
-        inp.addEventListener('change', () => nextBtn.disabled = false);
+        div.append(inp,lbl); optionsEl.append(div);
+        inp.addEventListener('change', ()=> nextBtn.disabled=false);
       });
       questionNumEl.textContent = `Question ${current+1} of ${quiz.length}`;
-      progressBar.style.width = `${((current)/quiz.length)*100}%`;
-      prevBtn.disabled = current === 0;
-      nextBtn.textContent = current === quiz.length-1 ? 'Submit' : 'Next';
+      progressBar.style.width = `${(current/quiz.length)*100}%`;
+      prevBtn.disabled = current===0;
+      nextBtn.textContent = current===quiz.length-1?'Submit':'Next';
       nextBtn.disabled = true;
     }
 
@@ -168,38 +172,46 @@
       userAnswers[current] = selected;
       feedbackEl.style.display = 'block';
       if (selected === quiz[current].answer) {
-        feedbackEl.className = 'feedback correct';
-        feedbackEl.textContent = 'Correct!';
-        score++;
+        feedbackEl.className='feedback correct'; feedbackEl.textContent='Correct!'; score++;
       } else {
-        feedbackEl.className = 'feedback incorrect';
-        feedbackEl.textContent = `Incorrect. Correct answer: ${quiz[current].options[quiz[current].answer]}`;
+        feedbackEl.className='feedback incorrect';
+        feedbackEl.textContent=`Incorrect. Correct answer: ${quiz[current].options[quiz[current].answer]}`;
       }
     }
 
     function nextQuestion() {
-      if (feedbackEl.style.display === 'none') showFeedback();
-      else if (current < quiz.length - 1) {
-        current++; renderQuestion();
-      } else finishQuiz();
+      if (feedbackEl.style.display==='none') showFeedback();
+      else if (current < quiz.length-1) { current++; renderQuestion(); }
+      else finishQuiz();
     }
 
     function prevQuestion() {
-      if (current > 0) { current--; renderQuestion(); }
+      if (current>0) { current--; renderQuestion(); }
     }
 
     function finishQuiz() {
       quizSection.classList.add('hidden');
       resultsSection.classList.remove('hidden');
       scoreEl.textContent = `You scored: ${score}/${quiz.length}`;
+      // build incorrect list:
       incorrectEl.innerHTML = '';
-      quiz.forEach((q, i) => {
-        if (userAnswers[i] !== q.answer) {
+      quiz.forEach((q,i)=>{
+        if (userAnswers[i]!==q.answer) {
           const div = document.createElement('div');
-          div.innerHTML = `<strong>Q${i+1}:</strong> ${q.question}<br><em>Your answer:</em> ${q.options[userAnswers[i]]}<br><em>Correct:</em> ${q.options[q.answer]}`;
+          div.innerHTML = `<strong>Q${i+1}:</strong> ${q.question}<br>
+            <em>Your:</em> ${q.options[userAnswers[i]]}<br>
+            <em>Correct:</em> ${q.options[q.answer]}`;
           incorrectEl.append(div);
         }
       });
+    }
+
+    function toggleReview() {
+      if (incorrectEl.classList.toggle('hidden')) {
+        reviewBtn.textContent = 'Review Incorrect';
+      } else {
+        reviewBtn.textContent = 'Hide Incorrect';
+      }
     }
 
     function restartQuiz() {
@@ -211,6 +223,7 @@
     startBtn.addEventListener('click', startQuiz);
     nextBtn.addEventListener('click', nextQuestion);
     prevBtn.addEventListener('click', prevQuestion);
+    reviewBtn.addEventListener('click', toggleReview);
     restartBtn.addEventListener('click', restartQuiz);
   </script>
 </body>
