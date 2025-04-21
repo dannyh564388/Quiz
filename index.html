@@ -1,198 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orthopedic Study Quiz</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f5f7fa; }
-        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
-        .quiz-container { background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .section-selector { margin-bottom: 20px; text-align: center; }
-        select { padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ddd; width: 100%; max-width: 400px; }
-        .question-container { margin-bottom: 20px; padding: 15px; border-radius: 5px; background-color: #f8f9fa; }
-        .question { font-weight: 600; margin-bottom: 15px; }
-        .options { margin-left: 20px; }
-        .option { margin-bottom: 10px; cursor: pointer; display: flex; align-items: flex-start; }
-        .option input { margin-right: 10px; margin-top: 3px; }
-        .feedback { margin-top: 10px; padding: 10px; border-radius: 5px; display: none; }
-        .correct { background-color: #d4edda; color: #155724; }
-        .incorrect { background-color: #f8d7da; color: #721c24; }
-        .progress { margin: 20px 0; height: 10px; border-radius: 5px; background-color: #e9ecef; overflow: hidden; }
-        .progress-bar { height: 100%; background-color: #4CAF50; width: 0%; border-radius: 5px; transition: width 0.3s ease; }
-        .controls { display: flex; justify-content: space-between; margin-top: 20px; }
-        button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #3498db; color: white; cursor: pointer; font-size: 16px; transition: background-color 0.3s; }
-        button:hover { background-color: #2980b9; }
-        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .start-btn { display: block; margin: 20px auto; background-color: #2ecc71; }
-        .results { text-align: center; margin-top: 20px; padding: 20px; background-color: #e8f4f8; border-radius: 5px; display: none; }
-        .score { font-size: 24px; font-weight: bold; margin-bottom: 15px; }
-        .restart-btn { background-color: #e74c3c; }
-        .question-number { text-align: right; font-size: 14px; color: #7f8c8d; margin-bottom: 10px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orthopedic Study Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f7fa;
+    }
+    h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+    .quiz-container { background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .section-selector { margin-bottom: 20px; text-align: center; }
+    select {
+      padding: 10px; font-size: 16px; border-radius: 5px;
+      border: 1px solid #ddd; width: 100%; max-width: 400px;
+    }
+    .question-container { margin-bottom: 20px; padding: 15px; border-radius: 5px; background-color: #f8f9fa; }
+    .question { font-weight: 600; margin-bottom: 15px; }
+    .options { margin-left: 20px; }
+    .option { margin-bottom: 10px; cursor: pointer; display: flex; align-items: flex-start; }
+    .option input { margin-right: 10px; margin-top: 3px; }
+    .feedback { margin-top: 10px; padding: 10px; border-radius: 5px; display: none; }
+    .correct { background-color: #d4edda; color: #155724; }
+    .incorrect { background-color: #f8d7da; color: #721c24; }
+    .progress { margin: 20px 0; height: 10px; border-radius: 5px; background-color: #e9ecef; overflow: hidden; }
+    .progress-bar { height: 100%; background-color: #4CAF50; width: 0%; border-radius: 5px; transition: width 0.3s ease; }
+    .controls { display: flex; justify-content: space-between; margin-top: 20px; }
+    button {
+      padding: 10px 15px; border: none; border-radius: 5px;
+      background-color: #3498db; color: white; cursor: pointer;
+      font-size: 16px; transition: background-color 0.3s;
+    }
+    button:hover { background-color: #2980b9; }
+    button:disabled { background-color: #95a5a6; cursor: not-allowed; }
+    .start-btn { display: block; margin: 20px auto; background-color: #2ecc71; }
+    .results {
+      text-align: center; margin-top: 20px; padding: 20px;
+      background-color: #e8f4f8; border-radius: 5px; display: none;
+    }
+    .score { font-size: 24px; font-weight: bold; margin-bottom: 15px; }
+    .restart-btn { background-color: #e74c3c; }
+    .question-number { text-align: right; font-size: 14px; color: #7f8c8d; margin-bottom: 10px; }
+    .hidden { display: none; }
+  </style>
 </head>
 <body>
-    <h1>Orthopedic Study Quiz</h1>
-    <div id="startSection" class="quiz-container">
-        <h2>Select a Quiz Section</h2>
-        <div class="section-selector">
-            <select id="sectionSelect">
-                <option value="all">All Sections (100 Questions)</option>
-                <option value="lumbar">Lumbar and Sacral Spine (20)</option>
-                <option value="hip">Hip Clinical Examination (20)</option>
-                <option value="foot">Foot and Ankle (20)</option>
-                <option value="knee1">Knee Exam Questions (20)</option>
-                <option value="knee2">Knee Condition Assessment (20)</option>
-            </select>
-        </div>
-        <button id="startQuiz" class="start-btn">Start Quiz</button>
+  <h1>Orthopedic Study Quiz</h1>
+
+  <div id="startSection" class="quiz-container">
+    <h2>Select a Quiz Section</h2>
+    <div class="section-selector">
+      <select id="sectionSelect">
+        <option value="all">All Sections (100 Questions)</option>
+        <option value="lumbar">Lumbar and Sacral Spine (20)</option>
+        <option value="hip">Hip Clinical Examination (20)</option>
+        <option value="foot">Foot and Ankle (20)</option>
+        <option value="knee1">Knee Exam Questions (20)</option>
+        <option value="knee2">Knee Condition Assessment (20)</option>
+      </select>
     </div>
-    <div id="quizSection" class="quiz-container hidden">
-        <div class="question-number" id="questionNumber"></div>
-        <div class="question-container">
-            <div class="question" id="question"></div>
-            <div class="options" id="options"></div>
-            <div class="feedback" id="feedback"></div>
-        </div>
-        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-        <div class="controls">
-            <button id="prevBtn" disabled>Previous</button>
-            <button id="nextBtn" disabled>Next</button>
-        </div>
+    <button id="startQuiz" class="start-btn">Start Quiz</button>
+  </div>
+
+  <div id="quizSection" class="quiz-container hidden">
+    <div class="question-number" id="questionNumber"></div>
+    <div class="question-container">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
     </div>
-    <div id="resultsSection" class="quiz-container hidden">
-        <div class="results">
-            <h2>Quiz Results</h2>
-            <div class="score" id="score"></div>
-            <div id="incorrectQuestions"></div>
-            <button id="restartQuiz" class="restart-btn">Restart Quiz</button>
-        </div>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="controls">
+      <button id="prevBtn" disabled>Previous</button>
+      <button id="nextBtn" disabled>Next</button>
     </div>
+  </div>
 
-    <script>
-        // Full quiz data (100 questions) from provided PDF
-        const quizData = {
-            lumbar: [ /* 20 lumbar questions as objects */ ],
-            hip:   [ /* 20 hip questions */ ],
-            foot:  [ /* 20 foot questions */ ],
-            knee1: [ /* 20 ortho knee exam questions */ ],
-            knee2: [ /* 20 knee condition assessment questions */ ]
-        };
+  <div id="resultsSection" class="quiz-container hidden">
+    <div class="results">
+      <h2>Quiz Results</h2>
+      <div class="score" id="score"></div>
+      <div id="incorrectQuestions"></div>
+      <button id="restartQuiz" class="restart-btn">Restart Quiz</button>
+    </div>
+  </div>
 
-        // Shuffle options for each question to scramble answer positions
-        function shuffleQuestion(q) {
-            const pairs = q.options.map((opt, i) => ({ opt, idx: i }));
-            for (let i = pairs.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
-            }
-            const newOptions = pairs.map(p => p.opt);
-            const newAnswer = pairs.findIndex(p => p.idx === q.answer);
-            return { question: q.question, options: newOptions, answer: newAnswer };
+  <!-- ✅ Load real question data -->
+  <script src="questions.js"></script>
+
+  <!-- ✅ Quiz app logic -->
+  <script>
+    function shuffleQuestion(q) {
+      const pairs = q.options.map((opt, i) => ({ opt, idx: i }));
+      for (let i = pairs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+      }
+      const newOptions = pairs.map(p => p.opt);
+      const newAnswer = pairs.findIndex(p => p.idx === q.answer);
+      return { question: q.question, options: newOptions, answer: newAnswer };
+    }
+
+    const startSection = document.getElementById('startSection');
+    const quizSection = document.getElementById('quizSection');
+    const resultsSection = document.getElementById('resultsSection');
+    const sectionSelect = document.getElementById('sectionSelect');
+    const startBtn = document.getElementById('startQuiz');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const restartBtn = document.getElementById('restartQuiz');
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const feedbackEl = document.getElementById('feedback');
+    const progressBar = document.getElementById('progressBar');
+    const questionNumEl = document.getElementById('questionNumber');
+    const scoreEl = document.getElementById('score');
+    const incorrectEl = document.getElementById('incorrectQuestions');
+
+    let quiz = [], current = 0, score = 0, userAnswers = [];
+
+    function startQuiz() {
+      const sec = sectionSelect.value;
+      let selected = [];
+      if (sec === 'all') {
+        selected = [...quizData.lumbar, ...quizData.hip, ...quizData.foot, ...quizData.knee1, ...quizData.knee2];
+      } else {
+        selected = quizData[sec];
+      }
+      quiz = selected.map(shuffleQuestion);
+      current = 0; score = 0; userAnswers = [];
+
+      startSection.classList.add('hidden');
+      quizSection.classList.remove('hidden');
+      resultsSection.classList.add('hidden');
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = quiz[current];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = '';
+      feedbackEl.style.display = 'none';
+      q.options.forEach((opt, i) => {
+        const div = document.createElement('div'); div.className = 'option';
+        const inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'option'; inp.id = `opt${i}`; inp.value = i;
+        const lbl = document.createElement('label'); lbl.htmlFor = `opt${i}`; lbl.textContent = opt;
+        div.append(inp, lbl);
+        optionsEl.append(div);
+        inp.addEventListener('change', () => nextBtn.disabled = false);
+      });
+      questionNumEl.textContent = `Question ${current+1} of ${quiz.length}`;
+      progressBar.style.width = `${((current)/quiz.length)*100}%`;
+      prevBtn.disabled = current === 0;
+      nextBtn.textContent = current === quiz.length-1 ? 'Submit' : 'Next';
+      nextBtn.disabled = true;
+    }
+
+    function showFeedback() {
+      const selected = parseInt(document.querySelector('input[name="option"]:checked').value);
+      userAnswers[current] = selected;
+      feedbackEl.style.display = 'block';
+      if (selected === quiz[current].answer) {
+        feedbackEl.className = 'feedback correct';
+        feedbackEl.textContent = 'Correct!';
+        score++;
+      } else {
+        feedbackEl.className = 'feedback incorrect';
+        feedbackEl.textContent = `Incorrect. Correct answer: ${quiz[current].options[quiz[current].answer]}`;
+      }
+    }
+
+    function nextQuestion() {
+      if (feedbackEl.style.display === 'none') showFeedback();
+      else if (current < quiz.length - 1) {
+        current++; renderQuestion();
+      } else finishQuiz();
+    }
+
+    function prevQuestion() {
+      if (current > 0) { current--; renderQuestion(); }
+    }
+
+    function finishQuiz() {
+      quizSection.classList.add('hidden');
+      resultsSection.classList.remove('hidden');
+      scoreEl.textContent = `You scored: ${score}/${quiz.length}`;
+      incorrectEl.innerHTML = '';
+      quiz.forEach((q, i) => {
+        if (userAnswers[i] !== q.answer) {
+          const div = document.createElement('div');
+          div.innerHTML = `<strong>Q${i+1}:</strong> ${q.question}<br><em>Your answer:</em> ${q.options[userAnswers[i]]}<br><em>Correct:</em> ${q.options[q.answer]}`;
+          incorrectEl.append(div);
         }
+      });
+    }
 
-        // DOM elements
-        const startSection   = document.getElementById('startSection');
-        const quizSection    = document.getElementById('quizSection');
-        const resultsSection = document.getElementById('resultsSection');
-        const sectionSelect  = document.getElementById('sectionSelect');
-        const startBtn       = document.getElementById('startQuiz');
-        const prevBtn        = document.getElementById('prevBtn');
-        const nextBtn        = document.getElementById('nextBtn');
-        const restartBtn     = document.getElementById('restartQuiz');
-        const questionEl     = document.getElementById('question');
-        const optionsEl      = document.getElementById('options');
-        const feedbackEl     = document.getElementById('feedback');
-        const progressBar    = document.getElementById('progressBar');
-        const questionNumEl  = document.getElementById('questionNumber');
-        const scoreEl        = document.getElementById('score');
-        const incorrectEl    = document.getElementById('incorrectQuestions');
+    function restartQuiz() {
+      startSection.classList.remove('hidden');
+      quizSection.classList.add('hidden');
+      resultsSection.classList.add('hidden');
+    }
 
-        let quiz = [], current = 0, score = 0, userAnswers = [];
-
-        function startQuiz() {
-            // Build selected quiz
-            const sec = sectionSelect.value;
-            let selected = [];
-            if (sec === 'all') {
-                selected = [...quizData.lumbar, ...quizData.hip, ...quizData.foot, ...quizData.knee1, ...quizData.knee2];
-            } else selected = quizData[sec];
-            // Shuffle options per question
-            quiz = selected.map(shuffleQuestion);
-            current = 0; score = 0; userAnswers = [];
-
-            startSection.classList.add('hidden');
-            quizSection.classList.remove('hidden');
-            resultsSection.classList.add('hidden');
-
-            renderQuestion();
-        }
-
-        function renderQuestion() {
-            const q = quiz[current];
-            questionEl.textContent = q.question;
-            optionsEl.innerHTML = '';
-            feedbackEl.style.display = 'none';
-            q.options.forEach((opt, i) => {
-                const div = document.createElement('div'); div.className = 'option';
-                const inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'option'; inp.id = `opt${i}`; inp.value = i;
-                const lbl = document.createElement('label'); lbl.htmlFor = `opt${i}`; lbl.textContent = opt;
-                div.append(inp, lbl);
-                optionsEl.append(div);
-                inp.addEventListener('change', () => nextBtn.disabled = false);
-            });
-            questionNumEl.textContent = `Question ${current+1} of ${quiz.length}`;
-            progressBar.style.width = `${((current)/quiz.length)*100}%`;
-            prevBtn.disabled = current === 0;
-            nextBtn.textContent = current === quiz.length-1 ? 'Submit' : 'Next';
-            nextBtn.disabled = true;
-        }
-
-        function showFeedback() {
-            const selected = parseInt(document.querySelector('input[name="option"]:checked').value);
-            userAnswers[current] = selected;
-            feedbackEl.style.display = 'block';
-            if (selected === quiz[current].answer) {
-                feedbackEl.className = 'feedback correct'; feedbackEl.textContent = 'Correct!'; score++;
-            } else {
-                feedbackEl.className = 'feedback incorrect'; feedbackEl.textContent = `Incorrect. Correct answer: ${quiz[current].options[quiz[current].answer]}`;
-            }
-        }
-
-        function nextQuestion() {
-            if (feedbackEl.style.display === 'none') showFeedback();
-            else if (current < quiz.length - 1) {
-                current++; renderQuestion();
-            } else finishQuiz();
-        }
-
-        function prevQuestion() {
-            if (current > 0) { current--; renderQuestion(); }
-        }
-
-        function finishQuiz() {
-            quizSection.classList.add('hidden');
-            resultsSection.classList.remove('hidden');
-            scoreEl.textContent = `You scored: ${score}/${quiz.length}`;
-            incorrectEl.innerHTML = '';
-            quiz.forEach((q, i) => {
-                if (userAnswers[i] !== q.answer) {
-                    const div = document.createElement('div');
-                    div.innerHTML = `<strong>Q${i+1}:</strong> ${q.question}<br><em>Your answer:</em> ${q.options[userAnswers[i]]}<br><em>Correct:</em> ${q.options[q.answer]}`;
-                    incorrectEl.append(div);
-                }
-            });
-        }
-
-        function restartQuiz() {
-            startSection.classList.remove('hidden'); quizSection.classList.add('hidden'); resultsSection.classList.add('hidden');
-        }
-
-        // Event Listeners
-        startBtn.addEventListener('click', startQuiz);
-        nextBtn.addEventListener('click', nextQuestion);
-        prevBtn.addEventListener('click', prevQuestion);
-        restartBtn.addEventListener('click', restartQuiz);
-    </script>
+    startBtn.addEventListener('click', startQuiz);
+    nextBtn.addEventListener('click', nextQuestion);
+    prevBtn.addEventListener('click', prevQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
+  </script>
 </body>
 </html>
