@@ -20,7 +20,7 @@
     .incorrect { background-color: #f8d7da; color: #721c24; }
     .progress { margin: 20px 0; height: 10px; border-radius: 5px; background-color: #e9ecef; overflow: hidden; }
     .progress-bar { height: 100%; background-color: #4CAF50; width: 0%; border-radius: 5px; transition: width 0.3s ease; }
-    .controls { display: flex; justify-content: space-between; margin-top: 20px; }
+    .controls { display: flex; justify-content: space-around; margin-top: 20px; }
     button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #3498db; color: white; cursor: pointer; font-size: 16px; transition: background-color 0.3s; }
     button:hover { background-color: #2980b9; }
     button:disabled { background-color: #95a5a6; cursor: not-allowed; }
@@ -31,15 +31,24 @@
     .review-btn { background-color: #f39c12; }
     .question-number { text-align: right; font-size: 14px; color: #7f8c8d; margin-bottom: 10px; }
     .hidden { display: none; }
-    #reviewWrong, #restartQuiz { margin-top: 15px; }
     #incorrectQuestions div { text-align: left; margin-bottom: 10px; }
   </style>
 </head>
 <body>
-  <h1>Therex Quiz</h1>
+  <h1 id="title">Orthopedic & Rehab Study Quiz</h1>
 
-  <div id="startSection" class="quiz-container">
-    <h2>Select a Quiz Section</h2>
+  <!-- Home Section -->
+  <div id="homeSection" class="quiz-container">
+    <h2>Select Quiz Class</h2>
+    <div class="controls">
+      <button id="therexBtn">Therex Class</button>
+      <button id="modalitiesBtn">Modalities Class</button>
+    </div>
+  </div>
+
+  <!-- Therex / Modalities Start Section -->
+  <div id="startSection" class="quiz-container hidden">
+    <h2 id="startTitle">Select a Quiz Section</h2>
     <div class="section-selector">
       <select id="sectionSelect">
         <option value="all">All (66 Questions)</option>
@@ -55,6 +64,7 @@
     <button id="startQuiz" class="start-btn">Start Quiz</button>
   </div>
 
+  <!-- Quiz Section -->
   <div id="quizSection" class="quiz-container hidden">
     <div class="question-number" id="questionNumber"></div>
     <div class="question-container">
@@ -69,6 +79,7 @@
     </div>
   </div>
 
+  <!-- Results Section -->
   <div id="resultsSection" class="quiz-container hidden">
     <div class="results">
       <h2>Quiz Results</h2>
@@ -79,126 +90,179 @@
     </div>
   </div>
 
-  <!-- load data -->
+  <!-- load data and logic -->
   <script type="module">
     import quizData from './questions.js';
 
-    const startSection   = document.getElementById('startSection');
-    const quizSection    = document.getElementById('quizSection');
-    const resultsSection = document.getElementById('resultsSection');
-    const sectionSelect  = document.getElementById('sectionSelect');
-    const startBtn       = document.getElementById('startQuiz');
-    const prevBtn        = document.getElementById('prevBtn');
-    const nextBtn        = document.getElementById('nextBtn');
-    const reviewBtn      = document.getElementById('reviewWrong');
-    const restartBtn     = document.getElementById('restartQuiz');
-    const questionEl     = document.getElementById('question');
-    const optionsEl      = document.getElementById('options');
-    const feedbackEl     = document.getElementById('feedback');
-    const progressBar    = document.getElementById('progressBar');
-    const questionNumEl  = document.getElementById('questionNumber');
-    const scoreEl        = document.getElementById('score');
-    const incorrectEl    = document.getElementById('incorrectQuestions');
+    // Sections
+    const homeSection   = document.getElementById('homeSection');
+    const startSection  = document.getElementById('startSection');
+    const quizSection   = document.getElementById('quizSection');
+    const resultsSection= document.getElementById('resultsSection');
 
-    let quiz = [], current = 0, score = 0, userAnswers = [];
+    // Home buttons
+    const therexBtn     = document.getElementById('therexBtn');
+    const modalitiesBtn = document.getElementById('modalitiesBtn');
 
+    // Dynamic elements
+    const titleEl           = document.getElementById('title');
+    const sectionSelectorDiv= document.querySelector('.section-selector');
+    const sectionSelect     = document.getElementById('sectionSelect');
+    const startBtn          = document.getElementById('startQuiz');
+    const prevBtn           = document.getElementById('prevBtn');
+    const nextBtn           = document.getElementById('nextBtn');
+    const reviewBtn         = document.getElementById('reviewWrong');
+    const restartBtn        = document.getElementById('restartQuiz');
+    const questionEl        = document.getElementById('question');
+    const optionsEl         = document.getElementById('options');
+    const feedbackEl        = document.getElementById('feedback');
+    const progressBar       = document.getElementById('progressBar');
+    const questionNumEl     = document.getElementById('questionNumber');
+    const scoreEl           = document.getElementById('score');
+    const incorrectEl       = document.getElementById('incorrectQuestions');
+
+    let quiz = [], current = 0, score = 0, userAnswers = [], currentClass = null;
+
+    // Home navigation
+    therexBtn.addEventListener('click', () => {
+      currentClass = 'therex';
+      titleEl.textContent = 'Therex Quiz';
+      sectionSelectorDiv.classList.remove('hidden');
+      startBtn.textContent = 'Start Quiz';
+      homeSection.classList.add('hidden');
+      startSection.classList.remove('hidden');
+    });
+
+    modalitiesBtn.addEventListener('click', () => {
+      currentClass = 'modalities';
+      titleEl.textContent = 'Modalities Quiz';
+      sectionSelectorDiv.classList.add('hidden');
+      startBtn.textContent = 'Start Modalities Quiz';
+      homeSection.classList.add('hidden');
+      startSection.classList.remove('hidden');
+    });
+
+    // Utility to pick random elements
     function getRandom(arr, n) {
-      const shuffled = arr.slice().sort(() => 0.5 - Math.random());
-      return shuffled.slice(0, n);
+      return arr.slice().sort(() => 0.5 - Math.random()).slice(0, n);
     }
 
+    // Shuffle options while tracking correct index
     function shuffleQuestion(q) {
-      const pairs = q.options.map((opt,i) => ({opt, idx:i}));
-      for (let i = pairs.length-1; i>0; i--) {
-        const j = Math.floor(Math.random() * (i+1));
+      const pairs = q.options.map((opt,i) => ({opt, idx: i}));
+      for (let i = pairs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
         [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
       }
-      const newOptions = pairs.map(p=>p.opt);
-      const newAnswer  = pairs.findIndex(p=>p.idx===q.answer);
+      const newOptions = pairs.map(p => p.opt);
+      const newAnswer  = pairs.findIndex(p => p.idx === q.answer);
       return { question: q.question, options: newOptions, answer: newAnswer };
     }
 
+    // Start quiz based on selected class
     function startQuiz() {
-      const sec = sectionSelect.value;
       let selected = [];
-      if (sec==='all') {
-        selected = [
-          ...getRandom(quizData.resistance,20),
-          ...getRandom(quizData.soft,8),
-          ...getRandom(quizData.balance,18),
-          ...getRandom(quizData.aquatic,3),
-          ...getRandom(quizData.nerve,8),
-          ...getRandom(quizData.aerobic,4),
-          ...getRandom(quizData.postsurgical,5)
-        ];
+      if (currentClass === 'modalities') {
+        selected = quizData.modalities;
       } else {
-        selected = quizData[sec];
+        const sec = sectionSelect.value;
+        if (sec === 'all') {
+          selected = [
+            ...getRandom(quizData.resistance, 20),
+            ...getRandom(quizData.soft, 8),
+            ...getRandom(quizData.balance, 18),
+            ...getRandom(quizData.aquatic, 3),
+            ...getRandom(quizData.nerve, 8),
+            ...getRandom(quizData.aerobic, 4),
+            ...getRandom(quizData.postsurgical, 5)
+          ];
+        } else {
+          selected = quizData[sec];
+        }
       }
       quiz = selected.map(shuffleQuestion);
-      current=0; score=0; userAnswers=[];
-      startSection.classList.add('hidden'); quizSection.classList.remove('hidden'); resultsSection.classList.add('hidden'); incorrectEl.classList.add('hidden'); reviewBtn.textContent='Review Incorrect';
+      current = 0; score = 0; userAnswers = [];
+      startSection.classList.add('hidden');
+      quizSection.classList.remove('hidden');
+      resultsSection.classList.add('hidden');
+      incorrectEl.classList.add('hidden');
+      reviewBtn.textContent = 'Review Incorrect';
       renderQuestion();
     }
 
+    // Render a question
     function renderQuestion() {
       const q = quiz[current];
       questionEl.textContent = q.question;
       optionsEl.innerHTML = '';
       feedbackEl.style.display = 'none';
-      q.options.forEach((opt,i)=>{
-        const div = document.createElement('div'); div.className='option';
-        const inp = document.createElement('input'); inp.type='radio'; inp.name='option'; inp.id=`opt${i}`; inp.value=i;
-        const lbl = document.createElement('label'); lbl.htmlFor=`opt${i}`; lbl.textContent=opt;
-        div.append(inp,lbl); optionsEl.append(div);
-        inp.addEventListener('change',()=>nextBtn.disabled=false);
+      q.options.forEach((opt,i) => {
+        const div = document.createElement('div'); div.className = 'option';
+        const inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'option'; inp.id = `opt${i}`; inp.value = i;
+        const lbl = document.createElement('label'); lbl.htmlFor = `opt${i}`; lbl.textContent = opt;
+        div.append(inp, lbl); optionsEl.append(div);
+        inp.addEventListener('change', () => nextBtn.disabled = false);
       });
       questionNumEl.textContent = `Question ${current+1} of ${quiz.length}`;
       progressBar.style.width = `${(current/quiz.length)*100}%`;
-      prevBtn.disabled = current===0;
-      nextBtn.textContent = current===quiz.length-1?'Submit':'Next';
-      nextBtn.disabled=true;
+      prevBtn.disabled = current === 0;
+      nextBtn.textContent = current === quiz.length - 1 ? 'Submit' : 'Next';
+      nextBtn.disabled = true;
     }
 
+    // Show feedback on answer
     function showFeedback() {
       const sel = parseInt(document.querySelector('input[name="option"]:checked').value);
       userAnswers[current] = sel;
-      feedbackEl.style.display='block';
-      if (sel===quiz[current].answer) {
-        feedbackEl.className='feedback correct'; feedbackEl.textContent='Correct!'; score++;
+      feedbackEl.style.display = 'block';
+      if (sel === quiz[current].answer) {
+        feedbackEl.className = 'feedback correct'; feedbackEl.textContent = 'Correct!'; score++;
       } else {
-        feedbackEl.className='feedback incorrect';
-        feedbackEl.textContent=`Incorrect. Answer: ${quiz[current].options[quiz[current].answer]}`;
+        feedbackEl.className = 'feedback incorrect';
+        feedbackEl.textContent = `Incorrect. Answer: ${quiz[current].options[quiz[current].answer]}`;
       }
     }
 
+    // Next / Submit logic
     function nextQuestion() {
-      if (feedbackEl.style.display==='none') showFeedback();
-      else if (current<quiz.length-1) { current++; renderQuestion(); }
+      if (feedbackEl.style.display === 'none') showFeedback();
+      else if (current < quiz.length - 1) { current++; renderQuestion(); }
       else finishQuiz();
     }
 
-    function prevQuestion() { if (current>0) { current--; renderQuestion(); }}
+    // Previous question
+    function prevQuestion() { if (current > 0) { current--; renderQuestion(); }}
 
+    // Finish and show results
     function finishQuiz() {
-      quizSection.classList.add('hidden'); resultsSection.classList.remove('hidden');
+      quizSection.classList.add('hidden');
+      resultsSection.classList.remove('hidden');
       scoreEl.textContent = `You scored: ${score}/${quiz.length}`;
-      incorrectEl.innerHTML='';
-      quiz.forEach((q,i)=>{
-        if (userAnswers[i]!==q.answer) {
-          const div=document.createElement('div');
+      incorrectEl.innerHTML = '';
+      quiz.forEach((q,i) => {
+        if (userAnswers[i] !== q.answer) {
+          const div = document.createElement('div');
           div.innerHTML = `<strong>Q${i+1}:</strong> ${q.question}<br><em>Your:</em> ${q.options[userAnswers[i]]}<br><em>Correct:</em> ${q.options[q.answer]}`;
           incorrectEl.append(div);
         }
       });
     }
 
+    // Toggle incorrect review
     function toggleReview() {
-      if (incorrectEl.classList.toggle('hidden')) reviewBtn.textContent='Review Incorrect';
-      else reviewBtn.textContent='Hide Incorrect';
+      if (incorrectEl.classList.toggle('hidden')) reviewBtn.textContent = 'Review Incorrect';
+      else reviewBtn.textContent = 'Hide Incorrect';
     }
 
-    function restartQuiz() { startSection.classList.remove('hidden'); quizSection.classList.add('hidden'); resultsSection.classList.add('hidden'); }
+    // Restart quiz
+    function restartQuiz() {
+      homeSection.classList.remove('hidden');
+      startSection.classList.add('hidden');
+      quizSection.classList.add('hidden');
+      resultsSection.classList.add('hidden');
+    }
 
+    // Event listeners
     startBtn.addEventListener('click', startQuiz);
     nextBtn.addEventListener('click', nextQuestion);
     prevBtn.addEventListener('click', prevQuestion);
