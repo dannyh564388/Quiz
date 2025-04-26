@@ -3,24 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Orthopedic Study Quiz</title>
+  <title>Orthopedic & Rehab Study Quiz</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f5f7fa;
-    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f5f7fa; }
     h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
     .quiz-container { background: #fff; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .section-selector { margin-bottom: 20px; text-align: center; }
-    select {
-      padding: 10px; font-size: 16px; border-radius: 5px;
-      border: 1px solid #ddd; width: 100%; max-width: 400px;
-    }
+    select { padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ddd; width: 100%; max-width: 400px; }
     .question-container { margin-bottom: 20px; padding: 15px; border-radius: 5px; background-color: #f8f9fa; }
     .question { font-weight: 600; margin-bottom: 15px; }
     .options { margin-left: 20px; }
@@ -32,18 +21,11 @@
     .progress { margin: 20px 0; height: 10px; border-radius: 5px; background-color: #e9ecef; overflow: hidden; }
     .progress-bar { height: 100%; background-color: #4CAF50; width: 0%; border-radius: 5px; transition: width 0.3s ease; }
     .controls { display: flex; justify-content: space-between; margin-top: 20px; }
-    button {
-      padding: 10px 15px; border: none; border-radius: 5px;
-      background-color: #3498db; color: white; cursor: pointer;
-      font-size: 16px; transition: background-color 0.3s;
-    }
+    button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #3498db; color: white; cursor: pointer; font-size: 16px; transition: background-color 0.3s; }
     button:hover { background-color: #2980b9; }
     button:disabled { background-color: #95a5a6; cursor: not-allowed; }
     .start-btn { display: block; margin: 20px auto; background-color: #2ecc71; }
-    .results {
-      text-align: center; margin-top: 20px; padding: 20px;
-      background-color: #e8f4f8; border-radius: 5px;
-    }
+    .results { text-align: center; margin-top: 20px; padding: 20px; background-color: #e8f4f8; border-radius: 5px; }
     .score { font-size: 24px; font-weight: bold; margin-bottom: 15px; }
     .restart-btn { background-color: #e74c3c; margin-left: 10px; }
     .review-btn { background-color: #f39c12; }
@@ -54,18 +36,20 @@
   </style>
 </head>
 <body>
-  <h1>Orthopedic Study Quiz</h1>
+  <h1>Orthopedic & Rehab Study Quiz</h1>
 
   <div id="startSection" class="quiz-container">
     <h2>Select a Quiz Section</h2>
     <div class="section-selector">
       <select id="sectionSelect">
-        <option value="all">All Sections (100 Questions)</option>
-        <option value="lumbar">Lumbar and Sacral Spine (20)</option>
-        <option value="hip">Hip Clinical Examination (20)</option>
-        <option value="foot">Foot and Ankle (20)</option>
-        <option value="knee1">Knee Exam Questions (20)</option>
-        <option value="knee2">Knee Condition Assessment (20)</option>
+        <option value="all">All (66 Questions)</option>
+        <option value="resistance">Resistance Training (20)</option>
+        <option value="soft">Soft Tissue/Connective Tissue (20)</option>
+        <option value="balance">Balance (18)</option>
+        <option value="aquatic">Aquatic (20)</option>
+        <option value="nerve">Peripheral Nerve (20)</option>
+        <option value="aerobic">Aerobic (20)</option>
+        <option value="postsurgical">Postsurgical (20)</option>
       </select>
     </div>
     <button id="startQuiz" class="start-btn">Start Quiz</button>
@@ -89,28 +73,15 @@
     <div class="results">
       <h2>Quiz Results</h2>
       <div class="score" id="score"></div>
-      <!-- Hidden by default, revealed when you click Review Incorrect -->
       <div id="incorrectQuestions" class="hidden"></div>
       <button id="reviewWrong" class="review-btn">Review Incorrect</button>
       <button id="restartQuiz" class="restart-btn">Restart Quiz</button>
     </div>
   </div>
 
-  <!-- Load real question data -->
-  <script src="questions.js"></script>
-
-  <!-- Quiz logic -->
-  <script>
-    function shuffleQuestion(q) {
-      const pairs = q.options.map((opt, i) => ({ opt, idx: i }));
-      for (let i = pairs.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
-      }
-      const newOptions = pairs.map(p => p.opt);
-      const newAnswer = pairs.findIndex(p => p.idx === q.answer);
-      return { question: q.question, options: newOptions, answer: newAnswer };
-    }
+  <!-- load data -->
+  <script type="module">
+    import quizData from './questions.js';
 
     const startSection   = document.getElementById('startSection');
     const quizSection    = document.getElementById('quizSection');
@@ -131,20 +102,41 @@
 
     let quiz = [], current = 0, score = 0, userAnswers = [];
 
+    function getRandom(arr, n) {
+      const shuffled = arr.slice().sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, n);
+    }
+
+    function shuffleQuestion(q) {
+      const pairs = q.options.map((opt,i) => ({opt, idx:i}));
+      for (let i = pairs.length-1; i>0; i--) {
+        const j = Math.floor(Math.random() * (i+1));
+        [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+      }
+      const newOptions = pairs.map(p=>p.opt);
+      const newAnswer  = pairs.findIndex(p=>p.idx===q.answer);
+      return { question: q.question, options: newOptions, answer: newAnswer };
+    }
+
     function startQuiz() {
       const sec = sectionSelect.value;
-      let selected = (sec === 'all')
-        ? [...quizData.lumbar, ...quizData.hip, ...quizData.foot, ...quizData.knee1, ...quizData.knee2]
-        : quizData[sec];
+      let selected = [];
+      if (sec==='all') {
+        selected = [
+          ...getRandom(quizData.resistance,20),
+          ...getRandom(quizData.soft,8),
+          ...getRandom(quizData.balance,18),
+          ...getRandom(quizData.aquatic,3),
+          ...getRandom(quizData.nerve,8),
+          ...getRandom(quizData.aerobic,4),
+          ...getRandom(quizData.postsurgical,5)
+        ];
+      } else {
+        selected = quizData[sec];
+      }
       quiz = selected.map(shuffleQuestion);
-      current = 0; score = 0; userAnswers = [];
-
-      startSection.classList.add('hidden');
-      quizSection.classList.remove('hidden');
-      resultsSection.classList.add('hidden');
-      incorrectEl.classList.add('hidden');
-      reviewBtn.textContent = 'Review Incorrect';
-
+      current=0; score=0; userAnswers=[];
+      startSection.classList.add('hidden'); quizSection.classList.remove('hidden'); resultsSection.classList.add('hidden'); incorrectEl.classList.add('hidden'); reviewBtn.textContent='Review Incorrect';
       renderQuestion();
     }
 
@@ -153,72 +145,59 @@
       questionEl.textContent = q.question;
       optionsEl.innerHTML = '';
       feedbackEl.style.display = 'none';
-      q.options.forEach((opt,i) => {
-        const div = document.createElement('div'); div.className = 'option';
-        const inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'option'; inp.value = i; inp.id = `opt${i}`;
-        const lbl = document.createElement('label'); lbl.htmlFor = `opt${i}`; lbl.textContent = opt;
+      q.options.forEach((opt,i)=>{
+        const div = document.createElement('div'); div.className='option';
+        const inp = document.createElement('input'); inp.type='radio'; inp.name='option'; inp.id=`opt${i}`; inp.value=i;
+        const lbl = document.createElement('label'); lbl.htmlFor=`opt${i}`; lbl.textContent=opt;
         div.append(inp,lbl); optionsEl.append(div);
-        inp.addEventListener('change', ()=> nextBtn.disabled=false);
+        inp.addEventListener('change',()=>nextBtn.disabled=false);
       });
       questionNumEl.textContent = `Question ${current+1} of ${quiz.length}`;
       progressBar.style.width = `${(current/quiz.length)*100}%`;
       prevBtn.disabled = current===0;
       nextBtn.textContent = current===quiz.length-1?'Submit':'Next';
-      nextBtn.disabled = true;
+      nextBtn.disabled=true;
     }
 
     function showFeedback() {
-      const selected = parseInt(document.querySelector('input[name="option"]:checked').value);
-      userAnswers[current] = selected;
-      feedbackEl.style.display = 'block';
-      if (selected === quiz[current].answer) {
+      const sel = parseInt(document.querySelector('input[name="option"]:checked').value);
+      userAnswers[current] = sel;
+      feedbackEl.style.display='block';
+      if (sel===quiz[current].answer) {
         feedbackEl.className='feedback correct'; feedbackEl.textContent='Correct!'; score++;
       } else {
         feedbackEl.className='feedback incorrect';
-        feedbackEl.textContent=`Incorrect. Correct answer: ${quiz[current].options[quiz[current].answer]}`;
+        feedbackEl.textContent=`Incorrect. Answer: ${quiz[current].options[quiz[current].answer]}`;
       }
     }
 
     function nextQuestion() {
       if (feedbackEl.style.display==='none') showFeedback();
-      else if (current < quiz.length-1) { current++; renderQuestion(); }
+      else if (current<quiz.length-1) { current++; renderQuestion(); }
       else finishQuiz();
     }
 
-    function prevQuestion() {
-      if (current>0) { current--; renderQuestion(); }
-    }
+    function prevQuestion() { if (current>0) { current--; renderQuestion(); }}
 
     function finishQuiz() {
-      quizSection.classList.add('hidden');
-      resultsSection.classList.remove('hidden');
+      quizSection.classList.add('hidden'); resultsSection.classList.remove('hidden');
       scoreEl.textContent = `You scored: ${score}/${quiz.length}`;
-      // build incorrect list:
-      incorrectEl.innerHTML = '';
+      incorrectEl.innerHTML='';
       quiz.forEach((q,i)=>{
         if (userAnswers[i]!==q.answer) {
-          const div = document.createElement('div');
-          div.innerHTML = `<strong>Q${i+1}:</strong> ${q.question}<br>
-            <em>Your:</em> ${q.options[userAnswers[i]]}<br>
-            <em>Correct:</em> ${q.options[q.answer]}`;
+          const div=document.createElement('div');
+          div.innerHTML = `<strong>Q${i+1}:</strong> ${q.question}<br><em>Your:</em> ${q.options[userAnswers[i]]}<br><em>Correct:</em> ${q.options[q.answer]}`;
           incorrectEl.append(div);
         }
       });
     }
 
     function toggleReview() {
-      if (incorrectEl.classList.toggle('hidden')) {
-        reviewBtn.textContent = 'Review Incorrect';
-      } else {
-        reviewBtn.textContent = 'Hide Incorrect';
-      }
+      if (incorrectEl.classList.toggle('hidden')) reviewBtn.textContent='Review Incorrect';
+      else reviewBtn.textContent='Hide Incorrect';
     }
 
-    function restartQuiz() {
-      startSection.classList.remove('hidden');
-      quizSection.classList.add('hidden');
-      resultsSection.classList.add('hidden');
-    }
+    function restartQuiz() { startSection.classList.remove('hidden'); quizSection.classList.add('hidden'); resultsSection.classList.add('hidden'); }
 
     startBtn.addEventListener('click', startQuiz);
     nextBtn.addEventListener('click', nextQuestion);
