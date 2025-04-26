@@ -407,148 +407,209 @@ const quizData = {
     }
   ],
 
-  balance: [
-    {
-      question: "According to the sources, Balance requires the interaction of which three physiological systems?",
-      options: [
-        "Muscular, Skeletal, and Nervous",
-        "Cardiovascular, Respiratory, and Metabolic",
-        "Vestibular, Visual, and Somatosensory",
-        "Proprioceptive, Kinesthetic, and Tactile"
-      ],
-      answer: 2
-    },
-    {
-      question: "Which term describes the perimeter of the contact areas between the body and its support surface?",
-      options: [
-        "Center of Mass (COM)",
-        "Limits of Stability",
-        "Base of Support (BOS)",
-        "Center of Pressure (COP)"
-      ],
-      answer: 2
-    },
-    {
-      question: "Limits of stability refers to the sway boundaries that maintain equilibrium without:",
-      options: [
-        "Activating the vestibular system",
-        "Increasing the ground reaction force",
-        "Changing the Base of Support (BOS)",
-        "Altering the center of pressure"
-      ],
-      answer: 2
-    },
-    {
-      question: "The Ankle Strategy for balance is primarily used for:",
-      options: [
-        "Large, rapid perturbations",
-        "Medial-lateral balance control",
-        "Lowering the body's center of mass",
-        "Small perturbations on a firm surface"
-      ],
-      answer: 3
-    },
-    {
-      question: "Which postural strategy involves shifting weight side-to-side over one leg and primarily uses the hip abductors/adductors and ankle invertors/evertors?",
-      options: [
-        "Ankle Strategy",
-        "Hip Strategy",
-        "Stepping Strategy",
-        "Weight-Shift Strategy (Lateral Strategy)"
-      ],
-      answer: 3
-    },
-    {
-      question: "The Suspension Strategy is used to lower the body's center of mass during a perturbation (e.g., crouching slightly). Which muscles are primarily involved in this strategy?",
-      options: [
-        "Ankle plantarflexors only",
-        "Trunk extensors",
-        "Quadriceps (eccentric control), hip flexors/extensors, knee extensors, ankle dorsiflexors/plantarflexors",
-        "Hip abductors and adductors only"
-      ],
-      answer: 2
-    },
-    {
-      question: "When considering balance during whole-body lifting, loss of balance is described as more likely to occur if the person:",
-      options: [
-        "Underestimates the load",
-        "Overestimates the load",
-        "Overestimates or underestimates the load",
-        "Maintains a neutral spine position"
-      ],
-      answer: 2
-    },
-    {
-      question: "Regarding lifting style and balance, the sources state that loss of balance is more likely with knees:",
-      options: [
-        "Slightly extended",
-        "Fully extended",
-        "Flexed",
-        "Not mentioned in relation to balance"
-      ],
-      answer: 2
-    },
-    {
-      question: "The sources mention the Berg Balance Test as an outcome measure useful for:",
-      options: [
-        "Assessing muscle strength",
-        "Determining limits of stability",
-        "Management of Impaired Balance",
-        "Quantifying aerobic capacity"
-      ],
-      answer: 2
-    },
-    {
-      question: "Steady-State Static Balance Control training interventions might include:",
-      options: [
-        "Perturbations",
-        "Functional reach tests",
-        "Single leg stance",
-        "Throwing a ball against a wall"
-      ],
-      answer: 2
-    },
-    {
-      question: "When you narrow the Base of Support (BOS), the Hip Strategy is described as becoming the primary balance strategy. This statement is:",
-      options: [
-        "Incorrect, ankle strategy is always primary.",
-        "Incorrect, stepping strategy is used.",
-        "Correct.",
-        "Not mentioned in the sources."
-      ],
-      answer: 2
-    },
-    {
-      question: "Reactive Balance Control training interventions are aimed at improving responses to unexpected external perturbations. This is like:",
-      options: [
-        "Lifting a known weight",
-        "Standing on a stable surface",
-        "Someone pushing you and you react",
-        "Walking on a treadmill"
-      ],
-      answer: 2
-    },
-    {
-      question: "Sensory Reweighting Training is described as helping patients learn how to re-prioritize sensory information for balance control. If you change the flooring surface, you are primarily changing input from which sensory system?",
-      options: [
-        "Visual",
-        "Vestibular",
-        "Somatosensory",
-        "Auditory"
-      ],
-      answer: 2
-    },
-    {
-      question: "Closing the eyes during a balance activity primarily changes input from which sensory system, putting more pressure on the somatosensory/vestibular systems?",
-      options: [
-        "Visual",
-        "Vestibular",
-        "Somatosensory",
-        "Auditory"
-      ],
-      answer: 0
-    }
-  ],
+ balance: [
+  {
+    question: "Balance requires the interaction of which three physiological systems?",
+    options: [
+      "Muscular, Skeletal, and Nervous",
+      "Cardiovascular, Respiratory, and Metabolic",
+      "Vestibular, Visual, and Somatosensory",
+      "Proprioceptive, Kinesthetic, and Tactile"
+    ],
+    answer: 2
+  },
+  {
+    question: "Which term describes the perimeter of the contact areas between the body and its support surface?",
+    options: [
+      "Center of Mass (COM)",
+      "Limits of Stability",
+      "Base of Support (BOS)",
+      "Center of Pressure (COP)"
+    ],
+    answer: 2
+  },
+  {
+    question: "Limits of stability refers to the sway boundaries that maintain equilibrium without:",
+    options: [
+      "Activating the vestibular system",
+      "Increasing the ground reaction force",
+      "Changing the Base of Support (BOS)",
+      "Altering the center of pressure"
+    ],
+    answer: 2
+  },
+  {
+    question: "The Ankle Strategy for balance is primarily used for:",
+    options: [
+      "Large, rapid perturbations",
+      "Medial-lateral balance control",
+      "Lowering the body's center of mass",
+      "Small perturbations on a firm surface"
+    ],
+    answer: 3
+  },
+  {
+    question: "Which postural strategy involves shifting weight side-to-side over one leg and primarily uses the hip abductors/adductors and ankle invertors/evertors?",
+    options: [
+      "Ankle Strategy",
+      "Hip Strategy",
+      "Stepping Strategy",
+      "Weight-Shift Strategy (Lateral Strategy)"
+    ],
+    answer: 3
+  },
+  {
+    question: "The Suspension Strategy is used to lower the body's center of mass during a perturbation. Which muscles are primarily involved in this strategy?",
+    options: [
+      "Ankle plantarflexors only",
+      "Trunk extensors",
+      "Quadriceps (eccentric control), hip flexors/extensors, knee extensors, ankle dorsiflexors/plantarflexors",
+      "Hip abductors and adductors only"
+    ],
+    answer: 2
+  },
+  {
+    question: "When considering balance during whole-body lifting, loss of balance is described as more likely to occur if the person:",
+    options: [
+      "Underestimates the load",
+      "Overestimates the load",
+      "Overestimates or underestimates the load",
+      "Maintains a neutral spine position"
+    ],
+    answer: 2
+  },
+  {
+    question: "Regarding lifting style and balance, the sources state that loss of balance is more likely with knees:",
+    options: [
+      "Slightly extended",
+      "Fully extended",
+      "Flexed",
+      "Not mentioned in relation to balance"
+    ],
+    answer: 2
+  },
+  {
+    question: "The Berg Balance Test is an outcome measure useful for:",
+    options: [
+      "Assessing muscle strength",
+      "Determining limits of stability",
+      "Management of Impaired Balance",
+      "Quantifying aerobic capacity"
+    ],
+    answer: 2
+  },
+  {
+    question: "Steady-State Static Balance Control training interventions might include:",
+    options: [
+      "Perturbations",
+      "Functional reach tests",
+      "Single leg stance",
+      "Throwing a ball against a wall"
+    ],
+    answer: 2
+  },
+  {
+    question: "When narrowing the Base of Support (BOS), which balance strategy becomes primary?",
+    options: [
+      "Ankle Strategy",
+      "Stepping Strategy",
+      "Hip Strategy",
+      "Suspension Strategy"
+    ],
+    answer: 2
+  },
+  {
+    question: "Reactive Balance Control training interventions aim to improve responses to unexpected external perturbations. This is similar to:",
+    options: [
+      "Lifting a known weight",
+      "Standing on a stable surface",
+      "Someone pushing you and you react",
+      "Walking on a treadmill"
+    ],
+    answer: 2
+  },
+  {
+    question: "Sensory Reweighting Training helps patients learn how to re-prioritize sensory information. Changing the flooring surface primarily affects which sensory system?",
+    options: [
+      "Visual",
+      "Vestibular",
+      "Somatosensory",
+      "Auditory"
+    ],
+    answer: 2
+  },
+  {
+    question: "Closing the eyes during a balance activity primarily changes input from which sensory system?",
+    options: [
+      "Visual",
+      "Vestibular",
+      "Somatosensory",
+      "Auditory"
+    ],
+    answer: 0
+  },
+  {
+    question: "Which system is primarily responsible for detecting linear acceleration and head position relative to gravity?",
+    options: [
+      "Visual",
+      "Vestibular (otolith organs)",
+      "Somatosensory",
+      "Cognitive"
+    ],
+    answer: 1
+  },
+  {
+    question: "The semicircular canals of the vestibular system primarily detect what kind of movement?",
+    options: [
+      "Linear acceleration",
+      "Angular acceleration",
+      "Static head tilt",
+      "Forward translation"
+    ],
+    answer: 1
+  },
+  {
+    question: "During perturbation-based balance training, improvements are typically noted in which area?",
+    options: [
+      "Aerobic endurance",
+      "Strength of the hip extensors",
+      "Reactive balance and fall risk reduction",
+      "Fine motor coordination"
+    ],
+    answer: 2
+  },
+  {
+    question: "According to sources, proprioceptive input during balance comes primarily from:",
+    options: [
+      "Eyes and vestibular system",
+      "Muscles and joints",
+      "Auditory cues",
+      "Skin tactile receptors only"
+    ],
+    answer: 1
+  },
+  {
+    question: "Which of the following describes the center of mass (COM)?",
+    options: [
+      "The outer perimeter of the base of support",
+      "The point that is most anterior on the body",
+      "The point where the body is balanced in all directions",
+      "The location of the maximum ground reaction force"
+    ],
+    answer: 2
+  },
+  {
+    question: "Which of the following strategies is typically used for large, fast perturbations?",
+    options: [
+      "Ankle strategy",
+      "Hip strategy",
+      "Stepping strategy",
+      "Suspension strategy"
+    ],
+    answer: 2
+  }
+],
+
 
   aquatic: [
     {
