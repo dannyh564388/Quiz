@@ -1421,7 +1421,360 @@ const quizData = {
       ],
       answer: 3
     }
+  ],
+  modalities: [
+    {
+      question: "Based on the provided text, what is the 'driving force that moves electrons' or 'the force that pushes charge'?",
+      options: ["Current", "Resistance", "Polarity", "Voltage"],
+      answer: 3
+    },
+    {
+      question: "According to the sources, what is the relationship between current (I), voltage (V), and resistance (R) described by Ohm's Law?",
+      options: ["I = R/V", "I = V * R", "I = V/R", "R = I/V"],
+      answer: 2
+    },
+    {
+      question: "When describing electrical current, what parameter is measured in Amperes (A), milliamp (mA), or microamp (μA)?",
+      options: ["Pulse duration", "Frequency", "Magnitude/Intensity", "Time"],
+      answer: 2
+    },
+    {
+      question: "According to the sources, Direct Current (DC) is described as having which of the following characteristics?",
+      options: ["Continuous, bidirectional flow", "A biphasic wave with direction changes at least once every second", "Continuous, unidirectional flow for at least 1 second", "Pulses grouped together"],
+      answer: 2
+    },
+    {
+      question: "Which of the following clinical uses is specifically listed for Direct Current (DC) in the provided text?",
+      options: ["Pain modulation (IFC)", "Contraction of innervated muscle (NMES)", "Iontophoresis and wound care", "Muscle reeducation (FES)"],
+      answer: 2
+    },
+    {
+      question: "Based on the strength-duration curve information, what combination of current parameters is typically needed to stimulate sensory nerves (Aβ fibers)?",
+      options: ["Higher amplitudes and longer pulse durations", "Lower current amplitudes and shorter pulse durations", "High amplitude and short duration", "Lower amplitudes and longer pulse durations"],
+      answer: 1
+    },
+    {
+      question: "Increasing the frequency of stimulation can lead to which physiological effect in muscles?",
+      options: ["Decreased nerve conduction velocity", "Accommodation of the nerve", "A steady, tetanic contraction", "An all-or-none response without increasing contraction force"],
+      answer: 2
+    },
+    {
+      question: "According to the sources, which of the following is listed as a contraindication for electrotherapy?",
+      options: ["Cardiac disease", "Impaired sensation", "Pregnancy", "Skin irritation"],
+      answer: 2
+    },
+    {
+      question: "If you are using unequal sized electrodes, how is the current density affected under the smaller electrode?",
+      options: ["It is equal to the current density under the larger electrode.", "It is less than the current density under the larger electrode.", "It is greater than the current density under the larger electrode.", "Current density is irrelevant when using unequal electrodes."],
+      answer: 2
+    },
+    {
+      question: "Which of the following is the recommended term for 'Pulse width' or 'Pulse length' according to the terminology summary?",
+      options: ["Pulse frequency", "Current amplitude", "Waveform", "Pulse duration"],
+      answer: 3
+    },
+        {
+      question: "According to the sources, Neuromuscular Electrical Stimulation (NMES) is the application of electrical current to motor nerves and requires:",
+      options: ["A denervated muscle", "Direct depolarization of the muscle fiber", "An intact and functioning peripheral nerve", "A long pulse duration (>10ms)"],
+      answer: 2
+    },
+    {
+      question: "Electrical Muscle Stimulation (EMS) is specifically reserved for what type of muscle?",
+      options: ["Innervated muscle", "Partially innervated muscle", "Intact and functioning muscle", "Denervated muscle"],
+      answer: 3
+    },
+    {
+      question: "What is the primary goal of Functional Electrical Stimulation (FES) as described in the sources?",
+      options: ["Minimize atrophy while a nerve regenerates", "Facilitate or enhance functional movement", "Depolarize the muscle directly", "Achieve a maximal voluntary isometric contraction (MVIC)"],
+      answer: 1
+    },
+    {
+      question: "Arthrogenic Muscle Inhibition (AMI) is described as a reflex inhibition of a healthy muscle post-injury or surgery. Which of the following is listed as an implication of AMI?",
+      options: ["Increased motor neuron availability", "Muscle weakness", "Decreased inflammatory response", "Facilitated activation failure"],
+      answer: 1
+    },
+    {
+      question: "According to the comparison of physiological vs. ES muscle contractions, which muscle fiber type is electrically recruited first during ES?",
+      options: ["Slow-twitch type I", "Fast-twitch type II", "Both types I and II simultaneously", "Muscle fiber type recruitment order is the same for both types of contractions."],
+      answer: 1
+    },
+    {
+      question: "A physical therapist is treating a 65-year-old male s/p CVA 6 weeks ago with foot drop using NMES to the anterior tibialis for muscle reeducation during ambulation. According to the suggested parameters for this case, what type of waveform is typically used?",
+      options: ["Direct current", "Burst-modulated AC (Russian)", "Pulsed biphasic current", "Premodulated current"],
+      answer: 2
+    },
+    {
+      question: "For NMES used to facilitate muscle strengthening post-injury, what percentage of MVIC is suggested as a goal for amplitude?",
+      options: ["≥ 50-60% MVIC", "≥ 25% MVIC", "≥ 10% MVIC", "Any amplitude that causes a visible contraction"],
+      answer: 2
+    },
+    {
+      question: "A patient presents with wrist flexor and hand tightness 3 months after a CVA, unable to use the hand functionally. According to the case example, NMES to the wrist extensors would be used for which goal and what on:off time is suggested?",
+      options: ["Muscle strengthening; 10 sec ON, 50 sec OFF", "Muscle reeducation; 1:3 ratio", "Improved motor control (decrease spasticity); 1:1 ratio (10/10)", "Edema via muscle pump; 1:1 ratio (2-5s/2-5s)"],
+      answer: 2
+    },
+    {
+      question: "To decrease the fatigue factor during electrical muscle contractions, what is suggested?",
+      options: ["Use a higher pulse frequency", "Provide longer rest periods between contractions", "Use a shorter pulse duration", "Stimulate Type I fibers first"],
+      answer: 1
+    },
+    {
+      question: "When using biphasic pulsed current for NMES, which variation is best suited for larger muscles, where both electrodes are considered active?",
+      options: ["Asymmetrical unbalanced biphasic", "Monophasic", "Symmetrical biphasic", "Asymmetrical balanced biphasic"],
+      answer: 2
+    },
+        {
+      question: "What two primary mechanisms of pain modulation are discussed as the rationale for TENS application?",
+      options: ["Gate control theory and Activation of the opiate system", "Blocking nerve conduction and Reducing muscle spasm", "Promoting vasodilation and Inhibiting bacterial growth", "Stimulating collagen production and Enhancing circulation"],
+      answer: 0
+    },
+    {
+      question: "Sensory-level (conventional/high-rate) TENS is indicated for which type of pain and preferentially stimulates what type of nerve fibers?",
+      options: ["Chronic pain; Aδ fibers", "Acute pain; A-beta (Aβ) nonnociceptive sensory nerves", "Chronic pain; Motor nerves", "Acute pain; C fibers"],
+      answer: 1
+    },
+    {
+      question: "According to the parameters listed for Sensory TENS, what pulse frequency is typically used?",
+      options: ["2-10 pps", "35-50 pps", "100-150 pps", "Up to 10 pps"],
+      answer: 2
+    },
+    {
+      question: "A patient with acute interscapular pain following waterskiing is treated with Sensory TENS. What therapeutic response is expected?",
+      options: ["Visible muscle twitches", "Strong muscle contractions", "Comfortable tingling or buzzing sensation", "Brief, sharp pain"],
+      answer: 2
+    },
+    {
+      question: "Motor-level (low-frequency/low-rate) TENS is indicated for which type of pain and primarily uses what mechanism for pain control?",
+      options: ["Acute pain; Gate control theory", "Chronic pain; Activation of the opiate system", "Acute pain; Interruption of the pain-spasm-pain cycle", "Chronic pain; Blocking nerve conduction"],
+      answer: 1
+    },
+    {
+      question: "For Motor TENS, what is the typical pulse frequency and expected therapeutic response?",
+      options: ["High (100-150 pps); Comfortable tingling", "Low (2-10 pps); Visible muscle twitches", "High (100-150 pps); Visible muscle twitches", "Low (2-10 pps); Comfortable tingling"],
+      answer: 1
+    },
+    {
+      question: "Brief-intense (burst) TENS is indicated for chronic pain and pain reduction prior to rehab. What is the expected therapeutic response at the treatment site?",
+      options: ["Comfortable tingling", "Visible strong muscle twitches – noxious level", "Mild muscle soreness", "Deep aching sensation"],
+      answer: 1
+    },
+    {
+      question: "Interferential Current (IFC) involves the concurrent delivery of two medium-frequency sinusoidal AC waves of slightly different frequencies. The resulting sequential increase and decrease of amplitude is called the:",
+      options: ["Carrier frequency", "Beat frequency", "Sweep", "Vector scan"],
+      answer: 1
+    },
+    {
+      question: "A patient presents with acute, poorly localized low back pain. According to the case example, IFC would be applied using which electrode configuration?",
+      options: ["Monopolar", "Bipolar", "Quadripolar, applied in a crisscross pattern", "Quadripolar, with all electrodes over the painful area"],
+      answer: 2
+    },
+    {
+      question: "For IFC used to treat acute pain, what range of beat frequency is typically recommended?",
+      options: ["1-10 Hz", "35-50 Hz", "50 Hz", "80-150 Hz"],
+      answer: 3
+    },
+        {
+      question: "According to the sources, which mechanism describes the attraction of charged cells to an electrical charge, a normal part of tissue healing activated by the 'skin battery' created by injury?",
+      options: ["Cell activation", "Enhanced circulation", "Galvanotaxis", "Antimicrobial effects"],
+      answer: 2
+    },
+    {
+      question: "In the process of galvanotaxis, which type of charged cells are attracted to the positive (+) pole (anode)?",
+      options: ["Lymphocytes and Fibroblasts", "Activated neutrophils and Keratinocytes", "Macrophages and Epidermal cells", "Platelets and Mast cells"],
+      answer: 2
+    },
+    {
+      question: "High-Volt Pulsed Current (HVPC) is described as a monophasic, pulsed current used for wound healing and edema control. What are key characteristics of the HVPC waveform?",
+      options: ["Single-peaked, biphasic, low peak voltage", "Twin-peaked, monophasic, high peak voltages, short pulse duration", "Continuous, unidirectional, low peak voltage", "Biphasic, bursts of AC, short pulse duration"],
+      answer: 1
+    },
+    {
+      question: "When using HVPC for wound healing during the early inflammatory phase or for infected wounds, which polarity is typically chosen?",
+      options: ["Positive (+)", "Negative (-)", "Alternating between positive and negative", "Polarity is not a factor for wound healing with HVPC"],
+      answer: 1
+    },
+    {
+      question: "A physical therapist is treating a 65-year-old male with a chronic sacral pressure ulcer that appears infected and inflamed. Using HVPC for wound healing, what polarity should be chosen and how might the active electrode be placed?",
+      options: ["Positive (+); Surrounding the wound", "Negative (-); In the wound bed or surrounding the wound", "Alternating polarity; In the wound bed", "Positive (+); In the wound bed"],
+      answer: 1
+    },
+    {
+      question: "For HVPC parameters used to treat edema associated with inflammation (e.g., acute ankle sprain), what pulse frequency is typically recommended?",
+      options: ["1-10 pps", "50-80 pps", "100-105 pps", "120 pps"],
+      answer: 3
+    },
+    {
+      question: "Iontophoresis uses a low-amplitude direct current for transdermal drug delivery. What is the primary mechanism by which the drug is pushed through the skin?",
+      options: ["Osmosis", "Enhanced circulation", "Like charges repel and opposites attract", "Activation of cell membrane channels"],
+      answer: 2
+    },
+    {
+      question: "Dexamethasone, a commonly used medication in iontophoresis for inflammation, has what polarity?",
+      options: ["Positive (+)", "Negative (-)", "Neutral", "Polarity varies depending on the solution concentration"],
+      answer: 1
+    },
+    {
+      question: "According to the sources, what is the typical dosage range for iontophoresis, measured in mA-min?",
+      options: ["10 to 20 mA-min", "20 to 40 mA-min", "40 to 80 mA-min", "80 to 100 mA-min"],
+      answer: 2
+    },
+    {
+      question: "A potential side effect of iontophoresis, especially at the cathode (-) pole, is an alkaline reaction due to the formation of sodium hydroxide. This reaction can cause:",
+      options: ["Coagulation of proteins leading to hardening of tissues", "Liquefaction of proteins leading to softening of tissues and potential chemical burns", "Increased nerve conduction velocity", "Decreased skin irritation and redness"],
+      answer: 1
+    },
+        {
+      question: "According to the Arndt-Schulz law as it relates to Photobiomodulation (PBM), what is necessary to initiate a biological process?",
+      options: ["Any amount of stimulus will initiate a biological process, the response just varies.", "There is a certain minimum stimulus needed; too little results in no effect, and too much can be detrimental.", "More stimulus always results in a greater biological effect.", "Biological processes initiated by PBM are independent of the dose or stimulus applied."],
+      answer: 1
+    },
+    {
+      question: "Which characteristic is specific to Laser light compared to Light from an LED or SLD?",
+      options: ["Polychromatic", "Incoherent", "Directional (collimated)", "Multidirectional"],
+      answer: 2
+    },
+    {
+      question: "According to the tissue penetration information, which wavelength color range typically penetrates deeper into tissues?",
+      options: ["Blue light (450-500nm)", "Red light (600-700nm)", "Infrared (IR) light (700-1100nm)", "Ultraviolet (UV) light (150-380nm)"],
+      answer: 2
+    },
+    {
+      question: "For therapeutic purposes, which laser classification is typically used?",
+      options: ["Class 1 (<0.5 mW)", "Class 2 (<1 mW)", "Class 3B (5-500 mW)", "Class 4 (>500 mW)"],
+      answer: 2
+    },
+    {
+      question: "When documenting photobiomodulation dosage, what parameter is considered the best to use as it includes power, time, and area of application?",
+      options: ["Power (Watts)", "Power density (mW/cm2)", "Energy (Joules)", "Energy density (J/cm2)"],
+      answer: 3
+    },
+    {
+      question: "Which of the following is listed as a physiological effect of Photobiomodulation?",
+      options: ["Decrease ATP production", "Promote collagen production", "Increase bacterial growth", "Promote vasoconstriction"],
+      answer: 1
+    },
+    {
+      question: "According to the clinical indications listed for PBM, which condition is suggested as potentially treatable?",
+      options: ["Malignancy", "Soft tissue and bone healing", "Over the thyroid gland", "Recent radiation"],
+      answer: 1
+    },
+    {
+      question: "A patient presents with chronic Right knee OA. According to the clinical scenario and dosing suggestions, what is a typical energy density range that might be used for arthritis?",
+      options: ["1-2 J/cm2", "2-15 J/cm2", "4-15 J/cm2", "Up to 15 J/cm2"],
+      answer: 1
+    },
+    {
+      question: "When applying PBM, what is the recommended orientation of the applicator relative to the skin?",
+      options: ["Parallel to the skin surface", "At a 45-degree angle", "Perpendicular to the skin surface", "Orientation does not affect treatment outcomes"],
+      answer: 2
+    },
+    {
+      question: "Which of the following is listed as a contraindication for Photobiomodulation?",
+      options: ["Epiphyseal plates", "Impaired sensation", "Direct irradiation of the eyes (Lasers)", "Photophobia"],
+      answer: 2
+    },
+        {
+      question: "According to the sources, what type of biofeedback is EMG biofeedback classified as?",
+      options: ["Direct biofeedback", "Transformed biofeedback", "Indirect biofeedback", "Thermal biofeedback"],
+      answer: 1
+    },
+    {
+      question: "What does Electromyographic (EMG) Biofeedback primarily measure or detect?",
+      options: ["Muscle contraction force", "Muscle strength", "Electrical activity in muscles", "Joint range of motion"],
+      answer: 2
+    },
+    {
+      question: "The source of the EMG signal detected by surface electrodes is the electrical activity associated with the depolarization of muscle fibers after activation of a motor unit. This is referred to as the:",
+      options: ["Resting membrane potential", "Action potential propagation", "Motor Unit Action Potential (MUAP)", "Tetanic contraction"],
+      answer: 2
+    },
+    {
+      question: "When applying EMG electrodes, how many active electrodes are typically used to detect electrical activity from motor units, and how are they generally placed relative to the muscle fibers?",
+      options: ["One active electrode, placed perpendicular to muscle fibers", "Two active electrodes, placed parallel to muscle fibers", "Three active electrodes, placed anywhere over the muscle belly", "Four active electrodes, placed in a quadripolar configuration"],
+      answer: 1
+    },
+    {
+      question: "In an EMG biofeedback unit, which process involves signal processing where the alternating voltage of the raw EMG is deflected from negative to positive, essentially creating a pulsed direct current for analysis?",
+      options: ["Amplification", "Filtering", "Rectification", "Smoothing"],
+      answer: 2
+    },
+    {
+      question: "When using EMG biofeedback for 'uptraining' (facilitation) to increase muscle activity, which signal sensitivity setting is typically used initially, and how should the threshold be set relative to the patient's initial peak amplitude?",
+      options: ["High sensitivity; Set the threshold far below the peak amplitude", "Low sensitivity; Set the threshold at or just above the peak amplitude", "High sensitivity; Set the threshold at or just above the peak amplitude", "Low sensitivity; Set the threshold far below the peak amplitude"],
+      answer: 1
+    },
+    {
+      question: "A patient is receiving EMG biofeedback for 'downtraining' (relaxation) of a hypertonic muscle. Which signal sensitivity setting would be appropriate to easily detect any electrical activity, and where might the threshold be set?",
+      options: ["Low sensitivity; Set the threshold high to encourage large contractions", "High sensitivity; Set the threshold low, focusing on decreasing activity below it", "Low sensitivity; Set the threshold low, focusing on decreasing activity below it", "High sensitivity; Set the threshold high to encourage relaxation"],
+      answer: 1
+    },
+    {
+      question: "According to the clinical evidence presented, EMG biofeedback may be indicated for which of the following conditions?",
+      options: ["Acute inflammatory conditions", "Unstable fracture", "Hemiplegia (to facilitate or inhibit muscles)", "Avulsed tendons"],
+      answer: 2
+    },
+    {
+      question: "Which of the following is listed as a contraindication for EMG biofeedback?",
+      options: ["Impaired sensation", "Chronic pain", "Pelvic floor muscle dysfunction", "Acute inflammatory conditions where muscular contraction could exacerbate the condition"],
+      answer: 3
+    },
+    {
+      question: "If you are troubleshooting an EMG biofeedback unit and the resting tone is high (> 2μV), which of the following might be a cause according to the sources?",
+      options: ["The patient is too relaxed.", "The active sensors are too far apart.", "The active sensors are touching each other.", "The signal gain is set too low."],
+      answer: 2
+    },
+        {
+      question: "According to the Florida Physical Therapy Practice Act definition provided, what is a 'Myofascial trigger point'?",
+      options: ["An area of referred pain distant from the source.", "An irritable section of soft tissue often associated with palpable nodules in taut bands of muscle fibers.", "A point on a Chinese meridian used in acupuncture.", "A point of nerve entrapment causing localized pain."],
+      answer: 1
+    },
+    {
+      question: "Based on Florida regulations, what is one of the requirements for a physical therapist to practice dry needling?",
+      options: ["Completion of 1 year of practice", "Completion of 20 hours of face-to-face continuing education on DN", "Completion of 25 supervised patient sessions of dry needling", "Obtaining patient consent is not explicitly required by regulation"],
+      answer: 2
+    },
+    {
+      question: "According to the classification of adverse events, which of the following is listed as a 'Significant' (uncommon) adverse event?",
+      options: ["Bleeding/bruising", "Pain during/after treatment", "Prolonged pain", "Pneumothorax/hemothorax"],
+      answer: 2
+    },
+    {
+      question: "Dry Needling is described as a Western medicine technique focused on myofascial trigger points (MTrPs). Acupuncture, developed thousands of years ago, is a component of Traditional Chinese Medicine (TCM) that intends to alter the flow of:",
+      options: ["Blood", "Nociceptive signals", "Energy or 'Qi'", "Neurotransmitters"],
+      answer: 2
+    },
+    {
+      question: "Myofascial trigger points (MTrPs) are described as physiological contractures. Which of the following chemical alterations is associated with MTrPs according to the sources?",
+      options: ["Increased pH", "Local ischemia and hypoxia", "Decreased acetylcholine release", "Decreased calcium levels"],
+      answer: 1
+    },
+    {
+      question: "The insertion of a needle into a trigger point is intended to deactivate it by eliciting a Local Twitch Response (LTR). What is the LTR described as?",
+      options: ["A voluntary muscle contraction controlled by the brain", "A spinal cord reflex characterized by an involuntary contraction of the MTrP", "A painful sensation indicating nerve damage", "The release of endogenous opioids in the brain"],
+      answer: 1
+    },
+    {
+      question: "Which of the following is listed as an indication for the practice of dry needling?",
+      options: ["Acute medical conditions", "Patients unwilling to give consent", "Presence of MTrPs that lead to impairment, pain, and functional limitations", "Active infection"],
+      answer: 2
+    },
+    {
+      question: "According to the precautions and contraindications, which of the following medical conditions requires caution or is a contraindication for dry needling?",
+      options: ["Hypertension", "Epilepsy", "Chronic fatigue syndrome", "Osteoarthritis"],
+      answer: 1
+    },
+    {
+      question: "When performing dry needling, where should depth of penetration be approached with extreme caution or avoided entirely due to the risk of organ puncture?",
+      options: ["Lumbar spine region", "Quadriceps muscle", "Thorax region", "Gluteus medius"],
+      answer: 2
+    },
+    {
+      question: "When electrical stimulation is added to dry needling, what type of waveform and frequency ranges are suggested as potentially enhancing treatment?",
+      options: ["Direct current; High frequencies only (80-100 Hz)", "Pulsed biphasic waveform; 2-4 Hz or 80-100 Hz", "Alternating current; Low frequencies only (2-4 Hz)", "Monophasic pulsed current; Frequencies above 100 Hz"],
+      answer: 1
+    }
   ]
 };
 
 export default quizData;
+
